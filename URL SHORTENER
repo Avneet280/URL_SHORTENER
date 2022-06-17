@@ -1,0 +1,28 @@
+import pyperclip
+import pyshorteners
+from tkinter import *
+
+root=Tk()
+root.geometry("600x400")
+root.title("URL SHORTENER")
+Label(root, text="This will help you to shorten your url, and make your life easy.").pack(pady=15)
+root.config(bg="#BDB76B")
+url=StringVar()
+url_address=StringVar()
+
+def urlshortener():
+    urladdress=url.get()
+    url_Short=pyshorteners.Shortener().tinyurl.short(urladdress)
+    url_address.set(url_Short)
+
+def copyurl():
+    url_short=url_address.get()
+    pyperclip.copy(url_short)
+
+l=Label(root,text="MY URL SHORTENER",font=("Arial Bold",20)).pack(pady=30)
+Entry(root,width=30,textvariable=url).pack(pady=10)
+B1=Button(root,text="GENERATE SHORT URL",width=25,bg="#F5F5DC",font=("Arial",9),command=urlshortener).pack(pady=10)
+Entry(root,width=30,textvariable=url_address).pack(pady=10)
+B2=Button(root,text="COPY URL",width=22,bg="#F5F5DC",font=("Arial",10),command=copyurl).pack(pady=5)
+
+root.mainloop()
